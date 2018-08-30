@@ -50,7 +50,7 @@ class Board extends Component {
 		let inner = isX ? window.innerWidth : window.innerHeight
 		let outer = isX ? window.outerWidth : window.outerHeight
 
-		return Math.min(coord, Math.max(0, Math.min(inner, outer) - noteSpace)) 
+		return Math.min(Math.max(coord, 0), Math.max(0, Math.min(inner, outer) - noteSpace)) 
 	}
 
 	// When app loads and window is resized/rotated, 
@@ -119,7 +119,7 @@ class Board extends Component {
 	move(newX, newY, i) {
 		this.setState(prevState => ({
 			notes: prevState.notes.map(
-				note => (note.id !== i) ? note : {...note, x: newX, y: newY}
+				note => (note.id !== i) ? note : {...note, x: this.fitComponent(newX), y: this.fitComponent(newY, false)}
 			)
 		}))
 	}
